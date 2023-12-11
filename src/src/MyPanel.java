@@ -16,9 +16,9 @@ public class MyPanel extends JPanel{
 
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.BLUE);
-        g2.drawRect(0, 0, 100, 100);
+        g2.drawRect(0, 0, 1000, 1000);
         g2.setColor(Color.BLUE);
-        g2.fillRect(0, 0, 100, 100);
+        g2.fillRect(0, 0, 1000, 1000);
     }
 
 }
