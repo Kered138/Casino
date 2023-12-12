@@ -29,14 +29,15 @@ package src;
             public static JLabel textOut = new JLabel("Null");
 
             public static MyPanel mainPanel = new MyPanel();
-            // public static String hero = "src\\Sprites\\Hero.png";
+            //public static String hero = "src\\src\\Sprites\\pixil-frame-0 (4).png";
             public static BufferedImage image;
             public static Container c;
             
         
             public static void main(String[] args) {
                 Draw();
-                windowCreator();        
+                windowCreator();   
+                   
         
             }
         
@@ -49,27 +50,27 @@ package src;
                 }
                 window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 window.setSize(WindowConstants.windowWidth, WindowConstants.windowHeight);
-              //  window.addKeyListener(new KeyAdapter() {
-                //    public void keyPressed(KeyEvent e) {
-                  //      int keyCode = e.getKeyCode();
-                    //    switch (keyCode) {
-                      //      case 87:
-                        //        keyPress(1);
-                          //      break;
-                            //case 65:
-                              //  keyPress(2);
-                                //break;
-                            //case 83:
-                              //  keyPress(3);
-                                //break;
-                            //case 68:
-                              //  keyPress(4);
-                               // break;
-                            //default:
-                              //  break;
-                       // }
-                    //}
-                //});
+                window.addKeyListener(new KeyAdapter() {
+                    public void keyPressed(KeyEvent e) {
+                        int keyCode = e.getKeyCode();
+                        switch (keyCode) {
+                            case 87:
+                                keyPress(1);
+                                break;
+                            case 65:
+                                keyPress(2);
+                                break;
+                            case 83:
+                                keyPress(3);
+                                break;
+                            case 68:
+                                keyPress(4);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
                 window.add(mainPanel);
                 window.setVisible(true);
             }
@@ -82,6 +83,38 @@ package src;
             c.add(mainPanel);
             // sets close behavior; EXIT_ON_CLOSE invokes System.exit(0) on closing the
        }
+       public static void keyPress(int key) {
+        if (key == 1) {
+            mainPanel.setLocation(mainPanel.getX(), (mainPanel.getY() - 10));
+            if (printKeyPresses) {
+                System.out.println("W Pressed");
+            }
+        }
+        else if (key == 2) {
+            mainPanel.setLocation(mainPanel.getX() - 10, mainPanel.getY());
+            if (printKeyPresses) {
+                System.out.println("A Pressed");
+            }
+        }
+        else if (key == 3) {
+            mainPanel.setLocation(mainPanel.getX(), (mainPanel.getY() + 10));
+            if (printKeyPresses) {
+                System.out.println("S Pressed");
+            }
+        }
+        else if (key == 4) {
+            mainPanel.setLocation(mainPanel.getX() + 10, (mainPanel.getY()));
+            if (printKeyPresses) {
+                System.out.println("D Pressed");
+            }
+        }
+        else {
+            System.out.println("Something broke with keypresses!");
+            System.exit(0);
+        }
+
+    }
+       
        
     }
 
