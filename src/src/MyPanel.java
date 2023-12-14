@@ -23,14 +23,16 @@ public class MyPanel extends JPanel{
         //g2.drawRect(0, 0, 1000, 1000);
         //g2.setColor(Color.BLUE);
        // g2.fillRect(0, 0, 1000, 1000);
-        g2.drawImage(image, 100, 100, this);
+        // g2.drawImage(image, 0, 0, this);
+        //g2.drawImage(image, 0, 0, 1280, 720, getFocusCycleRootAncestor());
+        
         
     }
     private BufferedImage image;
 
     public MyPanel() {
        try {                
-          image = ImageIO.read(new File("src\\src\\Sprites\\pixil-frame-0 (4).png"));
+          image = ImageIO.read(new File("src\\src\\Sprites\\export202312140856249633.png"));
           System.out.println(image);
        } catch (IOException ex) {
             // handle exception...
