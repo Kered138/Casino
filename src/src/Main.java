@@ -43,6 +43,7 @@ import java.io.*;
             public static JFrame f;
             public static int StartingMoney;
             public static int Money;
+            public static Timer timer; 
             
         
             public static void main(String[] args) {
@@ -199,15 +200,29 @@ import java.io.*;
     public static void Slots(){
       //slot1.setText("t ");
     //  sleep(100);
-      for(int i = 0;i<50;i++){
-        
-        slot1.setText((int) ((Math.random()*10) +1)+"");
-        slot2.setText((int) ((Math.random()*10) +1)+"");
-        slot3.setText((int) ((Math.random()*10) +1)+"");
-        sleep(10);
-      }
+    
+        ActionListener slotAction = new ActionListener() {
+        int count = 0;
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          slot1.setText((int) ((Math.random() * 10) + 1) + "");
+          slot2.setText((int) ((Math.random() * 10) + 1) + "");
+          slot3.setText((int) ((Math.random() * 10) + 1) + "");
+          count++;
+
+          if (count == 50) {
+                slotTimer.stop();
+                          }
+                        }
+
 
       
+    };
+
+    slotTimer = new Timer(10, slotAction);
+    slotTimer.start();
+
     }
     public static void sleep(double Mseconds) {
       int miliseconds = (int) (Mseconds);
