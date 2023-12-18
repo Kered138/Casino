@@ -222,68 +222,16 @@ import java.io.*;
     public static void Slots(){
       
       //slot1.setText("t ");
-      //  sleep(100);
-      ActionListener slotAction = new ActionListener() {
-        int count = 0;
-
-        @Override
-        public void actionPerformed(ActionEvent e){
-          slot1.setText((int) ((Math.random()*9) +1)+"");
-          slot2.setText((int) ((Math.random()*9) +1)+"");
-          slot3.setText((int) ((Math.random()*9) +1)+"");
-          
-          count++;
-          if(count == 50){
-            slotTimer.stop();
-            int num1 = (int) ((Math.random()*9) +1);
-            int num2 = (int) ((Math.random()*9) +1);
-            int num3 = (int) ((Math.random()*9) +1);
-            String str1 = num1+"";
-            String str2 = num2+"";
-            String str3 = num3+"";
-      
-            slot1.setText(null);
-            slot2.setText(null);
-            slot3.setText(null);
-            System.out.println(str1);
-            System.out.println(str2);
-            System.out.println(str3);
-            slot1.setText(str1);
-            slot2.setText(str2);
-            slot3.setText(str3);
-            System.out.println(slot1.getText());
-            System.out.println(slot2.getText());
-            System.out.println(slot3.getText());
-      
-            
-            if(num1 == num2 && num2 == num3){
-              Money+= 100 * currentBetAmount;
-              System.out.println("Jackpot");
-            }
-            else if(num1 == num2 || num1 == num3 || num2 == num3){
-              Money+= 15 * currentBetAmount;
-              System.out.println("You Win");
-            }
-            else{
-              Money-= currentBetAmount;
-            }
-            MoneySet();
-            slot1.setText(str1);
-            slot2.setText(str2);
-            slot3.setText(str3);
-          }
-        }
+    //  sleep(100);
+      for(int i = 0;i<50;i++){
         
-      };
-      slotTimer = new Timer(10,slotAction);
-      slotTimer.start();
-     
-      
+        slot1.setText((int) ((Math.random()*10) +1)+"");
+        slot2.setText((int) ((Math.random()*10) +1)+"");
+        slot3.setText((int) ((Math.random()*10) +1)+"");
+        sleep(10);
+      }
 
       
-    }
-    public static void MoneySet(){
-      l.setText("Money: " + Money);
     }
     public static void sleep(double Mseconds) {
       int miliseconds = (int) (Mseconds);
