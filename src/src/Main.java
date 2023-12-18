@@ -1,6 +1,7 @@
 package src;
 
         import src.constants.WindowConstants;
+        import src.MusicPlayer;
         
         import javax.imageio.ImageIO;
         import javax.swing.*;
@@ -31,7 +32,8 @@ import java.io.*;
             public static final boolean printKeyPresses = true;
             public static JFrame window = new JFrame("Game");
             public static JLabel textOut = new JLabel("Null");
-
+            public static JLayeredPane pane = new JLayeredPane();
+            public static JLayeredPane pane2 = new JLayeredPane();
             public static MyPanel mainPanel = new MyPanel();
             //public static String hero = "src\\src\\Sprites\\pixil-frame-0 (4).png";
             public static BufferedImage image;
@@ -43,17 +45,22 @@ import java.io.*;
             public static JFrame f;
             public static int StartingMoney;
             public static int Money;
+            public static int currentBetAmount = 100;
+            public static Timer slotTimer;
             
         
             public static void main(String[] args) {
-                Draw();
+                String filePath = "src\\src\\Music\\2021-07-07_-_Smooth_Rumble_-_www.FesliyanStudios.com.wav";
+                
                 windowCreator();   
+                Draw();
+                
                 
                 
                 StartingMoney = (int) (Math.random() * 5) + 1;
                 switch (StartingMoney) {
                   case 1:
-                    Money = 100;
+                    Money = 1000;
                     break;
                   case 2:
                     Money = 1000;
@@ -72,12 +79,11 @@ import java.io.*;
                     break;
                 }
                 System.out.println(StartingMoney);
-                mainPanel.add(l);
-                l.setText("Money: " + Money);
-                Slots();
+                
+                MoneySet();
+                playMusic(filePath);
+                
 
-                sleep(100);
-                Slots();
                 
                    
         
@@ -116,16 +122,16 @@ import java.io.*;
                         }
                     }
                 });
-                window.add(mainPanel);
+                window.add(pane);
+                pane.add(mainPanel,1);
+                //slotsPanel.setVisible(false);
                 window.setVisible(true);
                 window.setLayout(null);
                 window.setLayout(null);
                 mainPanel.setLayout(null);
-                l = new JLabel("The Casino");
-                mainPanel.add(l);
-                l.setBounds(500, 0,500,100);
-                l.setFont(new Font("Arial", Font.PLAIN, 30));
-                mainPanel.setBackground(Color.red); 
+                
+                //mainPanel.setBackground(Color.red); 
+
                 slot1 = new JLabel("panel label"); 
                 slot2 = new JLabel("panel label");
                 slot3 = new JLabel("panel label"); 
@@ -135,9 +141,18 @@ import java.io.*;
                 slot1.setBounds(500,100,100,100);
                 slot2.setBounds(600,100,100,100);
                 slot3.setBounds(700,100,100,100);
-                mainPanel.add(slot1);
-                mainPanel.add(slot2);
-                mainPanel.add(slot3);
+                pane.add(slot1,3);
+                pane.add(slot2,3);
+                pane.add(slot3,3);
+                l = new JLabel("The Casino");
+                l.setBounds(500, 0,500,100);
+                l.setFont(new Font("Arial", Font.PLAIN, 30));
+                pane.add(l,3);
+                l = new JLabel("The Casino");
+                l.setBounds(500, 0,500,100);
+                l.setFont(new Font("Arial", Font.PLAIN, 30));
+                pane.add(l,3);
+                
                 
                 
                 
@@ -150,8 +165,11 @@ import java.io.*;
             //  set the LayoutManager
             c.setLayout(new BorderLayout());
             mainPanel = new MyPanel();
+            
             // add MyPanel object into container
             c.add(mainPanel);
+            
+            
 
             // sets close behavior; EXIT_ON_CLOSE invokes System.exit(0) on closing the
        }
@@ -159,6 +177,7 @@ import java.io.*;
       
         if (key == 1) {
             //mainPanel.setLocation(mainPanel.getX(), (mainPanel.getY() - 10));
+         
             
             if (printKeyPresses) {
                 System.out.println("W Pressed");
@@ -172,18 +191,22 @@ import java.io.*;
             }
         }
         else if (key == 3) {
+            currentBetAmount = 100;
             //mainPanel.setLocation(mainPanel.getX(), (mainPanel.getY() + 10));
             if (printKeyPresses) {
                 System.out.println("S Pressed");
             }
         }
         else if (key == 4) {
+            currentBetAmount = 1000;
             //mainPanel.setLocation(mainPanel.getX() + 10, (mainPanel.getY()));
             if (printKeyPresses) {
                 System.out.println("D Pressed");
             }
         }
         else if (key == 5){
+          
+
           if(printKeyPresses){
             System.out.println("Enter Pressed");
           }
@@ -197,17 +220,70 @@ import java.io.*;
  
 
     public static void Slots(){
+      
       //slot1.setText("t ");
-    //  sleep(100);
-      for(int i = 0;i<50;i++){
+      //  sleep(100);
+      ActionListener slotAction = new ActionListener() {
+        int count = 0;
+
+        @Override
+        public void actionPerformed(ActionEvent e){
+          slot1.setText((int) ((Math.random()*9) +1)+"");
+          slot2.setText((int) ((Math.random()*9) +1)+"");
+          slot3.setText((int) ((Math.random()*9) +1)+"");
+          
+          count++;
+          if(count == 50){
+            slotTimer.stop();
+            int num1 = (int) ((Math.random()*9) +1);
+            int num2 = (int) ((Math.random()*9) +1);
+            int num3 = (int) ((Math.random()*9) +1);
+            String str1 = num1+"";
+            String str2 = num2+"";
+            String str3 = num3+"";
+      
+            slot1.setText(null);
+            slot2.setText(null);
+            slot3.setText(null);
+            System.out.println(str1);
+            System.out.println(str2);
+            System.out.println(str3);
+            slot1.setText(str1);
+            slot2.setText(str2);
+            slot3.setText(str3);
+            System.out.println(slot1.getText());
+            System.out.println(slot2.getText());
+            System.out.println(slot3.getText());
+      
+            
+            if(num1 == num2 && num2 == num3){
+              Money+= 100 * currentBetAmount;
+              System.out.println("Jackpot");
+            }
+            else if(num1 == num2 || num1 == num3 || num2 == num3){
+              Money+= 15 * currentBetAmount;
+              System.out.println("You Win");
+            }
+            else{
+              Money-= currentBetAmount;
+            }
+            MoneySet();
+            slot1.setText(str1);
+            slot2.setText(str2);
+            slot3.setText(str3);
+          }
+        }
         
-        slot1.setText((int) ((Math.random()*10) +1)+"");
-        slot2.setText((int) ((Math.random()*10) +1)+"");
-        slot3.setText((int) ((Math.random()*10) +1)+"");
-        sleep(10);
-      }
+      };
+      slotTimer = new Timer(10,slotAction);
+      slotTimer.start();
+     
+      
 
       
+    }
+    public static void MoneySet(){
+      l.setText("Money: " + Money);
     }
     public static void sleep(double Mseconds) {
       int miliseconds = (int) (Mseconds);
@@ -219,6 +295,28 @@ import java.io.*;
   }
        
        
+  public static void playMusic(String filePath) {
+    System.out.println("hi");
+    try{
+        while(true){
+            
+            File audioFile = new File(filePath);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+
+            System.out.println("Playing");
+            clip.start();
+            clip.drain();
+            clip.stop();
+             
+            clip.close();
+
+        }
+    }catch (UnsupportedAudioFileException | IOException | LineUnavailableException e){
+        e.printStackTrace();
+    }
+}
     }
 
 

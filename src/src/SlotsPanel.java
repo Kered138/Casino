@@ -1,0 +1,50 @@
+package src;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReadParam;
+import javax.swing.JPanel;
+
+@SuppressWarnings("unused")
+public class SlotsPanel extends JPanel{
+    
+    @Override
+    public void paint(Graphics g){
+        super.paint(g);
+
+        Graphics2D g2 = (Graphics2D) g;
+        //g2.setColor(Color.BLUE);
+        //g2.drawRect(0, 0, 1000, 1000);
+        //g2.setColor(Color.BLUE);
+       // g2.fillRect(0, 0, 1000, 1000);
+        // g2.drawImage(image, 0, 0, this);
+        g2.drawImage(image, 0, 0, 1280, 720, getFocusCycleRootAncestor());
+        
+        
+    }
+    private static BufferedImage image;
+    public static void setBackground(){
+               try {                
+          image = ImageIO.read(new File("src\\src\\Sprites\\1d55bd4f1a802a96aeecb2bb474186a9.jpg"));
+          System.out.println(image);
+       } catch (IOException ex) {
+            // handle exception...
+       }
+       
+    }
+    public SlotsPanel() {
+       try {                
+          image = ImageIO.read(new File("src\\src\\Sprites\\export202312140856249633.png"));
+          System.out.println(image);
+       } catch (IOException ex) {
+            // handle exception...
+       }
+    }
+
+}

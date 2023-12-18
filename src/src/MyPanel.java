@@ -24,12 +24,20 @@ public class MyPanel extends JPanel{
         //g2.setColor(Color.BLUE);
        // g2.fillRect(0, 0, 1000, 1000);
         // g2.drawImage(image, 0, 0, this);
-        //g2.drawImage(image, 0, 0, 1280, 720, getFocusCycleRootAncestor());
+        g2.drawImage(image, 0, 0, 1280, 720, getFocusCycleRootAncestor());
         
         
     }
-    private BufferedImage image;
-
+    private static BufferedImage image;
+    public static void setBackground(){
+               try {                
+          image = ImageIO.read(new File("src\\src\\Sprites\\1d55bd4f1a802a96aeecb2bb474186a9.jpg"));
+          System.out.println(image);
+       } catch (IOException ex) {
+            // handle exception...
+       }
+       
+    }
     public MyPanel() {
        try {                
           image = ImageIO.read(new File("src\\src\\Sprites\\export202312140856249633.png"));
