@@ -42,6 +42,7 @@ import java.io.*;
             public static JLabel slot1;
             public static JLabel slot2;
             public static JLabel slot3;
+            public static JLabel instr;
             public static JFrame f;
             public static int StartingMoney;
             public static int Money;
@@ -54,6 +55,7 @@ import java.io.*;
                 
                 windowCreator();   
                 Draw();
+                MoneySet();
                 
                 
                 
@@ -69,10 +71,10 @@ import java.io.*;
                     Money = 10000;
                     break;
                   case 4:
-                    Money = 100000;
+                    Money = 1000;
                     break;
                   case 5:
-                    Money = 0;
+                    Money = 1000;
                     break;
                 
                   default:
@@ -141,14 +143,21 @@ import java.io.*;
                 slot1.setBounds(500,100,100,100);
                 slot2.setBounds(600,100,100,100);
                 slot3.setBounds(700,100,100,100);
+                instr = new JLabel("Welcome!");
+                instr.setBounds(0, 0,100,100);
+                instr.setFont(new Font("Arial", Font.PLAIN, 30));
+                pane.add(instr,3);
                 pane.add(slot1,3);
                 pane.add(slot2,3);
                 pane.add(slot3,3);
     
-                l = new JLabel("");
-                l.setBounds(500, 0,500,100);
+                l = new JLabel("Welcome!");
+                l.setBounds(500, 0,700,100);
                 l.setFont(new Font("Arial", Font.PLAIN, 30));
                 pane.add(l,3);
+
+                instr.setText("WELCOME");
+
                 
                 
                 
@@ -177,25 +186,35 @@ import java.io.*;
          
             
             if (printKeyPresses) {
+                currentBetAmount += 10000000;
+                MoneySet();
                 System.out.println("W Pressed");
             }
         }
         else if (key == 2) {
             //mainPanel.setLocation(mainPanel.getX() - 10, mainPanel.getY());
-            Slots();
+            if(Money>0){
+              Slots();
+            }
+          
             if (printKeyPresses) {
                 System.out.println("A Pressed");
             }
         }
         else if (key == 3) {
-            currentBetAmount = 100;
+            if(currentBetAmount > 0){
+              currentBetAmount -=100;
+            }
+            
+            MoneySet();
             //mainPanel.setLocation(mainPanel.getX(), (mainPanel.getY() + 10));
             if (printKeyPresses) {
                 System.out.println("S Pressed");
             }
         }
         else if (key == 4) {
-            currentBetAmount = 1000;
+            currentBetAmount += 100;
+            MoneySet();
             //mainPanel.setLocation(mainPanel.getX() + 10, (mainPanel.getY()));
             if (printKeyPresses) {
                 System.out.println("D Pressed");
@@ -248,9 +267,9 @@ import java.io.*;
             slot1.setText(str1);
             slot2.setText(str2);
             slot3.setText(str3);
-            System.out.println(slot1.getText());
-            System.out.println(slot2.getText());
-            System.out.println(slot3.getText());
+            //System.out.println(slot1.getText());
+            //System.out.println(slot2.getText());
+            //System.out.println(slot3.getText());
       
             
             if(num1 == num2 && num2 == num3){
@@ -280,7 +299,13 @@ import java.io.*;
       
     }
     public static void MoneySet(){
-      l.setText("Money: " + Money);
+      if(Money > 0){
+        l.setText("Money: " + Money + " Current Bet:" + currentBetAmount);
+      }
+      else{
+        l.setText("You Lose");
+      }
+      
     }
     public static void sleep(double Mseconds) {
       int miliseconds = (int) (Mseconds);
@@ -295,7 +320,7 @@ import java.io.*;
   public static void playMusic(String filePath) {
     System.out.println("hi");
     try{
-        while(true){
+        //while(true){
             
             File audioFile = new File(filePath);
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
@@ -309,7 +334,8 @@ import java.io.*;
              
             clip.close();
 
-        }
+
+       // }
     }catch (UnsupportedAudioFileException | IOException | LineUnavailableException e){
         e.printStackTrace();
     }

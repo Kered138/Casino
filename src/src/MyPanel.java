@@ -31,7 +31,7 @@ public class MyPanel extends JPanel{
     private static BufferedImage image;
     public static void setBackground(){
                try {                
-          image = ImageIO.read(new File("src\\src\\Sprites\\1d55bd4f1a802a96aeecb2bb474186a9.jpg"));
+          image = ImageIO.read(new File("src\\src\\Sprites\\logo.png"));
           System.out.println(image);
        } catch (IOException ex) {
             // handle exception...
@@ -40,7 +40,7 @@ public class MyPanel extends JPanel{
     }
     public MyPanel() {
        try {                
-          image = ImageIO.read(new File("src\\src\\Sprites\\export202312140856249633.png"));
+          image = ImageIO.read(new File("src\\src\\Sprites\\logo.png"));
           System.out.println(image);
        } catch (IOException ex) {
             // handle exception...
